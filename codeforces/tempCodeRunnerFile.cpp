@@ -1,0 +1,1 @@
+    cout<<min<<medium<<maxim;
