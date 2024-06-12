@@ -90,6 +90,40 @@ class SecondScreen(Screen):
 
 
 
+
+
+<SecondScreen>:
+    name: 'second'
+    overlay: overlay
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 60, 20
+        spacing: 0
+        canvas.before:
+            Color:
+                rgba: 150/255, 150/255, 150/255, 1   
+            Rectangle:
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint_y: 0.1 
+
+        BoxLayout:
+            size_hint_y: None 
+            pos_hint: {'center_x': 0.5}
+            height: '350dp' 
+
+
+
+
+
+
+
+
+
+
+
 from kivy.properties import ObjectProperty
 from kivy.animation import Animation
 
