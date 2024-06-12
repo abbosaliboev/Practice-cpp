@@ -86,3 +86,23 @@ class SecondScreen(Screen):
     def add_to_basket(self):
         # Your logic to add item to the basket
         pass
+
+
+
+
+from kivy.properties import ObjectProperty
+from kivy.animation import Animation
+
+class SecondScreen(Screen):
+    overlay = ObjectProperty(None)
+    touch_start_x = None
+    touch_start_y = None
+
+    def on_touch_down(self, touch):
+        if self.collide_point(*touch.pos):
+            self.touch_start_x = touch.x
+            self.touch_start_y = touch.y
+        return super(SecondScreen, self).on_touch_down(touch)
+
+    def on_touch_move(self, touch):
+        if self.touch_start_x is not None and
