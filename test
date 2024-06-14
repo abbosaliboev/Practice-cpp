@@ -1,205 +1,70 @@
-<SecondScreen>:
-    name: 'second'
-    BoxLayout:
-        orientation: 'vertical'
-        padding: 60, 20
-        spacing: 0
-        canvas.before:
-            Color:
-                rgba: 150/255, 150/255, 150/255, 1   
-            Rectangle:
-                size: self.size
-                pos: self.pos
-
-        BoxLayout:
-            size_hint_y: 0.1 
-
-        BoxLayout:
-            size_hint_y: None 
-            pos_hint: {'center_x': 0.5}
-            height: '350dp'           
+BoxLayout:
+            size_hint_y: None
+            height: '100dp'  
+            pos_hint: {'center_x': 0.50}
             spacing: 50
+            padding: 10,30
             Button:
-                id: main_button
-                padding: 10, 20
-                text: root.product_data if root.product_data else '' # Binds product_data to the button text
-                pos_hint: {'center_y': 0.5}
-                size_hint_y: 1
-                text_size: self.size 
+                id: pay_button
+                size_hint: None, None
+                size: 560, 200
                 background_normal: ''
-                background_color: (48/255, 84/255, 150/255, 0)                                 
-                halign: 'center'
-                valign: 'middle'
-                font_name: 'NanumGothicBold.ttf'  # 한글을 지원하는 폰트를 추가함.
-                on_press: app.root.current = 'main'
+                background_color: (48/255, 84/255, 150/255, 0)  
+                on_press: app.root.current = 'pay'
                 canvas.before:
-                    Color:                        
-                        rgba: 60/255, 165/255, 113/255, 1  
+                    Color:
+                        rgba:  23/255, 107/255, 135/255, 1
                     RoundedRectangle:
-                        size: self.size
                         pos: self.pos
-                        radius: [18, 18, 18, 18]    
-
-        BoxLayout:
-            size_hint_y: 0.1  
+                        size: self.size
+                        radius: [32, 32, 32, 32]  
+                Image:
+                    source: 'png_files/button_card.png'  
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
 
         BoxLayout:
             size_hint_y: None
             height: '100dp'  
-            pos_hint: {'center_x': 0.6}
+            pos_hint: {'center_x': 0.52}
             spacing: 50
-            BoxLayout:
-                id: touch_box
-                size_hint: 1, None
-                height: '200dp'
-                on_touch_down: root.on_touch_down(args[1])
-                on_touch_move: root.on_touch_move(args[1])
+            Button:
+                id: back_button
+                size_hint: None, None
+                size: 250, 200
+                background_normal: ''
+                background_color: (48/255, 84/255, 150/255, 0)  
+                on_press: app.root.current = 'main'
+                canvas.before:
+                    Color:
+                        rgba:  23/255, 107/255, 135/255, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [32, 32, 32, 32]  
+                Image:
+                    source: 'png_files/button_back.png'  
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
 
-
-
-
-
-
-class SecondScreen(Screen):
-    product_data = StringProperty("")
-
-    def on_touch_down(self, touch):
-        self.touch_start_x = touch.x
-        self.touch_start_y = touch.y
-        return super(SecondScreen, self).on_touch_down(touch)
-
-    def on_touch_move(self, touch):
-        if abs(touch.x - self.touch_start_x) > 50:
-            if touch.x > self.touch_start_x:
-                self.on_swipe_right()
-            else:
-                self.on_swipe_left()
-        return super(SecondScreen, self).on_touch_move(touch)
-
-    def on_swipe_left(self):
-        self.manager.current = 'main'
-
-    def on_swipe_right(self):
-        self.add_to_basket()
-        self.manager.current = 'basket'
-
-    def add_to_basket(self):
-        # Your logic to add item to the basket
-        pass
-
-
-
-
-
-
-<SecondScreen>:
-    name: 'second'
-    overlay: overlay
-    BoxLayout:
-        orientation: 'vertical'
-        padding: 60, 20
-        spacing: 0
-        canvas.before:
-            Color:
-                rgba: 150/255, 150/255, 150/255, 1   
-            Rectangle:
-                size: self.size
-                pos: self.pos
-
-        BoxLayout:
-            size_hint_y: 0.1 
-
-        BoxLayout:
-            size_hint_y: None 
-            pos_hint: {'center_x': 0.5}
-            height: '350dp' 
-
-
-
-
-
-
-
-
-
-
-
-from kivy.properties import ObjectProperty
-from kivy.animation import Animation
-
-class SecondScreen(Screen):
-    overlay = ObjectProperty(None)
-    touch_start_x = None
-    touch_start_y = None
-
-    def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
-            self.touch_start_x = touch.x
-            self.touch_start_y = touch.y
-        return super(SecondScreen, self).on_touch_down(touch)
-
-    def on_touch_move(self, touch):
-        if self.touch_start_x is not None and
-
-
--------------------
-
-
-from kivy.properties import ObjectProperty
-from kivy.animation import Animation
-
-class SecondScreen(Screen):
-    overlay = ObjectProperty(None)
-    touch_start_x = None
-    touch_start_y = None
-
-    def on_touch_down(self, touch):
-        if self.collide_point(*touch.pos):
-            self.touch_start_x = touch.x
-            self.touch_start_y = touch.y
-        return super(SecondScreen, self).on_touch_down(touch)
-
-    def on_touch_move(self, touch):
-        if self.touch_start_x is not None and self.touch_start_y is not None:
-            if abs(touch.x - self.touch_start_x) > 50 and abs(touch.y - self.touch_start_y) < 100:
-                if touch.x > self.touch_start_x:
-                    self.show_swipe_cue('right')
-                else:
-                    self.show_swipe_cue('left')
-        return super(SecondScreen, self).on_touch_move(touch)
-
-    def on_touch_up(self, touch):
-        if self.touch_start_x is not None and self.touch_start_y is not None:
-            if abs(touch.x - self.touch_start_x) > 50 and abs(touch.y - self.touch_start_y) < 100:
-                if touch.x > self.touch_start_x:
-                    self.on_swipe_right()
-                else:
-                    self.on_swipe_left()
-            self.touch_start_x = None
-            self.touch_start_y = None
-        self.hide_swipe_cue()
-        return super(SecondScreen, self).on_touch_up(touch)
-
-    def on_swipe_left(self):
-        self.manager.current = 'main'
-
-    def on_swipe_right(self):
-        self.add_to_basket()
-        self.manager.current = 'basket'
-
-    def add_to_basket(self):
-        # Your logic to add item to the basket
-        pass
-
-    def show_swipe_cue(self, direction):
-        if direction == 'left':
-            self.overlay.color = (1, 0, 0, 0.5)  # Red for left swipe
-        else:
-            self.overlay.color = (0, 1, 0, 0.5)  # Green for right swipe
-        Animation(opacity=0.5, duration=0.1).start(self.overlay)
-
-    def hide_swipe_cue(self):
-        Animation(opacity=0, duration=0.1).start(self.overlay)
-
+            #trashbutton
+            Button:
+                id: bsket_button
+                size_hint: None, None
+                size: 270, 200
+                background_normal: ''
+                background_color: (48/255, 84/255, 150/255, 0)  
+                on_press: root.reset_basket()  # Call the reset function when pressed
+                canvas.before:
+                    Color:
+                        rgba: 23/255, 107/255, 135/255, 1
+                    RoundedRectangle:
+                        pos: self.pos
+                        size: self.size
+                        radius: [32, 32, 32, 32]
+                Image:
+                    source: 'png_files/button_trash.png'  
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
 
 
