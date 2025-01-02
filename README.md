@@ -1,2 +1,2 @@
-# cpp-project
+# C++ project
 C++ &amp; Foundation
